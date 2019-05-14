@@ -62,7 +62,7 @@ const styles = theme => ({
 class CustomizedSelects extends React.Component {
     state = {
         search: '',
-        showCatagore: false,
+        showCatagory: false,
     };
 
     handleChange = event => {
@@ -70,7 +70,7 @@ class CustomizedSelects extends React.Component {
     };
 
     buttonOnClick = () => {
-        this.setState({ showCatagore: !this.state.showCatagore });
+        this.setState({ showCatagory: !this.state.showCatagory });
     }
 
     render() {
@@ -85,9 +85,9 @@ class CustomizedSelects extends React.Component {
                         </InputLabel>
                         <BootstrapInput />
                     </FormControl>
-                    <FormControl name="catagore" className={classes.margin}>
+                    <FormControl className={classes.margin}>
                         <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel} />
-                        {this.state.showCatagore == true ?
+                        {this.state.showCatagory == true ?
                             <Select value={this.state.search}
                                 onChange={this.handleChange}
                                 input={<BootstrapInput name="search" id="search-customized-select" />}
