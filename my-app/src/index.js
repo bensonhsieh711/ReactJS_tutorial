@@ -11,6 +11,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
+import Selects from './Componet/SelectsBar/Selects'
 
 class App extends React.Component {
     constructor(props) {
@@ -49,16 +50,17 @@ class App extends React.Component {
                         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                         onRequestClose={this.handleRequestClose}
                     >
-                        <Menu>
+                        {/* <Menu>
                             <MenuItem primaryText="CV" />
                             <MenuItem primaryText="Contact me" />
-                            {/* <MenuItem primaryText="Help &amp; feedback" />
+                            <MenuItem primaryText="Help &amp; feedback" />
                   <MenuItem primaryText="Settings" />
-                  <MenuItem primaryText="Sign out" /> */}
-                        </Menu>
+                  <MenuItem primaryText="Sign out" />
+                        </Menu> */}
                     </Popover>
-                    <AppBar title='Benson Hsieh' onClick={this.handleTouchTap} />
-                    <img src={url} width={'80%'} height={'100%'} />
+                    <AppBar title='Law Hackthon Demo' onClick={this.handleTouchTap} />
+                    {/* <img src={url} width={'80%'} height={'100%'} /> */}
+                    <Selects />
                 </div>
             </MuiThemeProvider>
         );
