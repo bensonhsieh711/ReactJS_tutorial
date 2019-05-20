@@ -8,7 +8,10 @@ import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import { Button } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 import { RaisedButton } from 'material-ui';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const BootstrapInput = withStyles(theme => ({
     root: {
@@ -59,10 +62,35 @@ const styles = theme => ({
     },
 });
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+  ];
+
 class CustomizedSelects extends React.Component {
     state = {
         search: '',
         showCatagory: false,
+        name: [],
     };
 
     handleChange = event => {
@@ -81,7 +109,7 @@ class CustomizedSelects extends React.Component {
                 <form className={classes.root} autoComplete="off">
                     <FormControl className={classes.margin}>
                         <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel}>
-                            Enter some key words
+                            輸日關鍵字
                         </InputLabel>
                         <BootstrapInput />
                     </FormControl>
@@ -99,6 +127,22 @@ class CustomizedSelects extends React.Component {
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
                             </Select> : null}
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="select-multiple-checkbox">種類</InputLabel>
+                        <Select multiple
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                            input={<Input id="select-multiple-checkbox" />}
+                            renderValue={selected => selected.join(', ')}
+                            MenuProps={MenuProps} >
+                            {names.map(name => (
+                            <MenuItem key={name} value={name}>
+                                <Checkbox checked={this.state.name.indexOf(name) > -1} />
+                                <ListItemText primary={name} />
+                            </MenuItem>
+                            ))}
+                        </Select>
                     </FormControl>
                     {/* <FormControl className={classes.margin}>
                     <InputLabel htmlFor="search-customized-native-simple" className={classes.bootstrapFormLabel}>
