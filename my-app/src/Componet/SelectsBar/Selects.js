@@ -12,6 +12,12 @@ import Input from '@material-ui/core/Input';
 import { RaisedButton } from 'material-ui';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+import MultipleSelect from './MultipleSelect'
+import Card from '@material-ui/core/Card';
+import Collapse from '@material-ui/core/Collapse';
+import Link from '@material-ui/core/Link';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const BootstrapInput = withStyles(theme => ({
     root: {
@@ -66,104 +72,89 @@ const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
     },
-  };
-
-  const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
+};
 
 class CustomizedSelects extends React.Component {
     state = {
         search: '',
         showCatagory: false,
         name: [],
+        searchAreaExpend: true,
+        resultAreaExpend: false,
+        open: false,
     };
 
     handleChange = event => {
         this.setState({ search: event.target.value });
     };
 
-    buttonOnClick = () => {
+    keywordSearchchOnClick = () => {
         this.setState({ showCatagory: !this.state.showCatagory });
+    }
+
+    relativeSearchOnClick = () => {
+        this.setState({
+            searchAreaExpend: !this.state.searchAreaExpend,
+            resultAreaExpend: !this.state.resultAreaExpend
+        });
+    }
+
+    handleClose = () => {
+        this.setState({ open: false })
+    }
+
+    handleOpen = (eventName) => {
+        this.setState({ 
+            open: true,
+        })
     }
 
     render() {
         const { classes } = this.props;
 
         return (
-            <div>
-                <form className={classes.root} autoComplete="off">
-                    <FormControl className={classes.margin}>
-                        <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel}>
-                            輸日關鍵字
-                        </InputLabel>
-                        <BootstrapInput />
-                    </FormControl>
-                    <FormControl className={classes.margin}>
-                        <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel} />
-                        {this.state.showCatagory == true ?
-                            <Select value={this.state.search}
-                                onChange={this.handleChange}
-                                input={<BootstrapInput name="search" id="search-customized-select" />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select> : null}
-                    </FormControl>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="select-multiple-checkbox">種類</InputLabel>
-                        <Select multiple
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                            input={<Input id="select-multiple-checkbox" />}
-                            renderValue={selected => selected.join(', ')}
-                            MenuProps={MenuProps} >
-                            {names.map(name => (
-                            <MenuItem key={name} value={name}>
-                                <Checkbox checked={this.state.name.indexOf(name) > -1} />
-                                <ListItemText primary={name} />
-                            </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    {/* <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="search-customized-native-simple" className={classes.bootstrapFormLabel}>
-                        Age
-                    </InputLabel>
-                    <NativeSelect
-                        value={this.state.search}
-                        onChange={this.handleChange}
-                        input={<BootstrapInput name="search" id="search-customized-native-simple" />}
-                    >
-                        <option value="" />
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
-                    </NativeSelect>
-                </FormControl> */}
-                </form>
-                <Button variant="contained" color="primary" className={classes.margin} onClick={this.buttonOnClick}>
-                    Search
-                </Button>
-            </div>
+            <Card>
+                <Collapse in={this.state.searchAreaExpend}>
+                    <form className={classes.root} autoComplete="off">
+                        <FormControl className={classes.margin}>
+                            <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel}>
+                                輸入關鍵字
+                            </InputLabel>
+                            <BootstrapInput />
+                        </FormControl>
+                        <FormControl className={classes.margin}>
+                            <InputLabel htmlFor="search-customized-select" className={classes.bootstrapFormLabel} />
+                            {this.state.showCatagory == true ? <MultipleSelect /> : null}
+                        </FormControl>
+                    </form>
+                    <Button variant="contained" color='secondary' className={classes.margin} onClick={this.keywordSearchchOnClick}>
+                        搜尋關鍵字
+                    </Button>
+                    <Button variant="contained" color="primary" className={classes.margin} onClick={this.relativeSearchOnClick}>
+                        搜尋相關結果
+                    </Button>
+                </Collapse>
+                <Collapse in={this.state.resultAreaExpend}>
+                    <Button onClick={this.handleOpen}>案件一</Button>
+                    <Button onClick={this.handleOpen}>案件二</Button>
+                    <Button onClick={this.handleOpen}>案件三</Button>
+                    <Dialog onClose={this.handleClose}
+                        aria-labelledby="customized-dialog-title"
+                        open={this.state.open}>
+                        <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+                           新聞相關連結
+                        </DialogTitle>                        
+                    </Dialog>
+                    <Button variant="contained" color="primary" className={classes.margin} onClick={this.relativeSearchOnClick}>
+                        返回搜尋
+                    </Button>
+                </Collapse>
+            </Card>
         );
     }
 }

@@ -42,26 +42,24 @@ class App extends React.Component {
         let imgUrl = 'https://firebasestorage.googleapis.com/v0/b/jsontest1-c8ebb.appspot.com/o/20170827_040437405_iOS.jpg?alt=media&token=c2cb35b6-a985-44a7-8811-0e2afaf98c4b';
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <div>
-                    <Popover
-                        open={this.state.open}
-                        anchorEl={this.state.anchorEl}
-                        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                        targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                        onRequestClose={this.handleRequestClose}
-                    >
-                        {/* <Menu>
+                <Popover
+                    open={this.state.open}
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+                    onRequestClose={this.handleRequestClose}
+                >
+                    {/* <Menu>
                             <MenuItem primaryText="CV" />
                             <MenuItem primaryText="Contact me" />
                             <MenuItem primaryText="Help &amp; feedback" />
                   <MenuItem primaryText="Settings" />
                   <MenuItem primaryText="Sign out" />
                         </Menu> */}
-                    </Popover>
-                    <AppBar title='Law Hackthon Demo' onClick={this.handleTouchTap} />
-                    {/* <img src={url} width={'80%'} height={'100%'} /> */}
-                    <Selects />
-                </div>
+                </Popover>
+                <AppBar title='法律黑客松' onClick={this.handleTouchTap} />
+                {/* <img src={url} width={'80%'} height={'100%'} /> */}
+                <Selects />
             </MuiThemeProvider>
         );
     }
