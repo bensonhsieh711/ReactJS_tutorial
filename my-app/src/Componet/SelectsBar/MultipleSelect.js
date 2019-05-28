@@ -26,6 +26,7 @@ const category = [
   '鄭傑',
   '槍枝',
   '幫派鬥爭',
+  '四海幫',
 ];
 
 function MultipleSelect() {
